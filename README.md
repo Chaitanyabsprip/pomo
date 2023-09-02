@@ -1,0 +1,54 @@
+
+# Pomo
+
+`pomo` is a simple command line pomodoro timer.
+
+## Features
+
+Pomo features very basic set of features including start, stop and show running time. It also allows to pause timers.
+
+## Installation
+
+You can install pomo by cloning the directory and running make install
+
+```bash
+  git clone https://github.com/Chaitanyabsprip/pomo.git
+  sudo make install
+```
+
+## Usage/Examples
+
+* Start a timer
+
+```sh
+pomo start
+```
+
+You can optionally pass the duration in `2h54m31s` format or `hr` or `hour` to start a timer until the start of the next hour.
+
+```sh
+pomo start 52m30s
+pomo start hour
+```
+
+* Stop a timer
+
+```sh
+pomo Stop
+```
+
+* Pause a timer
+
+```sh
+pomo pause
+```
+
+* Print the pending duration on stdout
+
+```sh
+pomo
+```
+
+## Acknowledgements
+
+* [rwxrob/pomo](https://github.com/rwxrob/pomo)

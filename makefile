@@ -19,7 +19,7 @@ clean:
 	@if [ -f "${CACHEFILE}" ]; then rm "${CACHEFILE}"; fi
 
 install: ./bin/pomo
-	@install ./bin/pomo ${HOME}/.config/bin/pomo
+	@install ./bin/pomo /usr/local/bin/pomo
 
 uninstall: clean
 	@rm ${HOME}/.config/bin/pomo
