@@ -3,30 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 	"time"
 )
-
-func stringf(t time.Duration) string {
-	dStr := t.String()
-	var h, m, s string
-	var split []string
-	if strings.Contains(dStr, "h") {
-		split = strings.Split(dStr, "h")
-		h = split[0] + ":"
-		dStr = split[1]
-	}
-	if strings.Contains(dStr, "m") {
-		split = strings.Split(dStr, "m")
-		m = split[0] + ":"
-		dStr = split[1]
-	}
-	if strings.Contains(dStr, "s") {
-		split = strings.Split(dStr, "s")
-		s = split[0]
-	}
-	return fmt.Sprintf("%s%s%s", h, m, s)
-}
 
 func Start(duration time.Duration) {
 	now := time.Now()
@@ -79,7 +57,7 @@ func Stop() {
 	fmt.Fprintln(os.Stdout, "Timer stopped")
 }
 
-func ShowTime() {
+func ShowTime(alertDuration time.Duration) {
 	timer, err := GetTimer()
 	if err != nil || timer.IsNil() {
 		fmt.Fprint(os.Stdout, "")
@@ -91,5 +69,13 @@ func ShowTime() {
 	}
 	duration := time.Until(timer.Start.Add(timer.Duration))
 	duration = duration.Round(time.Second)
-	fmt.Fprintf(os.Stdout, "🍅%s\n", stringf(duration))
+	symbols := []string{"🍅", "💢"}
+	var symbol *string
+	if duration < alertDuration {
+		index := (duration / time.Second) % 2
+		symbol = &symbols[index.Abs()]
+	} else {
+		symbol = &symbols[0]
+	}
+	fmt.Fprintf(os.Stdout, "%s%s\n", *symbol, duration.String())
 }

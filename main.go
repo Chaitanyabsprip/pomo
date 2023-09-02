@@ -41,7 +41,7 @@ func main() {
 	case "stop":
 		Stop()
 	case "":
-		ShowTime()
+		ShowTime(10 * time.Second)
 	default:
 		fmt.Fprintln(os.Stderr, "Invalid command")
 	}
