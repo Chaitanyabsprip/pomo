@@ -13,9 +13,22 @@ var cacheFile = os.Getenv("HOME") + "/.cache/pomotimer"
 
 func stringf(t time.Duration) string {
 	dStr := t.String()
-	h := strings.Split(dStr, "h")[0] + ":"
-	m := strings.Split(dStr, "m")[0] + ":"
-	s := strings.Split(dStr, "s")[0]
+	var h, m, s string
+	var split []string
+	if strings.Contains(dStr, "h") {
+		split = strings.Split(dStr, "h")
+		h = split[0] + ":"
+		dStr = split[1]
+	}
+	if strings.Contains(dStr, "m") {
+		split = strings.Split(dStr, "m")
+		m = split[0] + ":"
+		dStr = split[1]
+	}
+	if strings.Contains(dStr, "s") {
+		split = strings.Split(dStr, "s")
+		s = split[0]
+	}
 	return fmt.Sprintf("%s%s%s", h, m, s)
 }
 
