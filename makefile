@@ -1,5 +1,3 @@
-CACHEFILE=${HOME}/.cache/pomotimer
-
 .DEFAULT_GOAL:=./bin/pomo
 
 ./bin/pomo: main.go cache.go handlers.go
@@ -11,12 +9,12 @@ start: ./bin/pomo
 show: ./bin/pomo
 	@./bin/pomo
 
-stop: ./bin/pomo ${CACHEFILE}
+stop: ./bin/pomo
 	@./bin/pomo stop
 
 clean:
 	@rm ./bin/pomo
-	@if [ -f "${CACHEFILE}" ]; then rm "${CACHEFILE}"; fi
+	@rm "${HOME}/.cache/pomodoro/*timer" 2>/dev/null
 
 install: ./bin/pomo
 	@install ./bin/pomo /usr/local/bin/pomo

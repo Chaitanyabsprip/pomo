@@ -6,7 +6,12 @@
 ## Features
 
 Pomo features very basic set of features including start, stop and show running
-time. It also allows to pause timers.
+time. Additionally:
+
+* It also allows to pause timers.
+* If you're using it with watch or as a statusline element in tmux or neovim,
+  the symbol will flash
+* You can have multiple binaries, named differently running different timers
 
 ## Installation
 

@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -17,10 +18,16 @@ type Timer struct {
 
 func (t *Timer) IsNil() bool { return t.Duration == 0 && t.Start.IsZero() }
 
-var cacheFile = os.Getenv("HOME") + "/.cache/pomotimer"
+var cacheFile = os.Getenv("HOME") + "/.cache/pomodoro/" + filepath.Base(os.Args[0]) + "timer"
 
 func Setup() error {
+	if _, err := os.Stat(filepath.Dir(cacheFile)); os.IsNotExist(err) {
+		if err := os.Mkdir(filepath.Dir(cacheFile), 0755); err != nil {
+			return err
+		}
+	}
 	if _, err := os.Stat(cacheFile); os.IsNotExist(err) {
+		fmt.Println(cacheFile)
 		if err := os.WriteFile(cacheFile, []byte{}, 0644); err != nil {
 			return err
 		}
