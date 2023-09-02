@@ -5,9 +5,6 @@ import (
 	"fmt"
 	"os"
 	"time"
-
-	"github.com/chaitanyabsprip/pomo/cache"
-	"github.com/chaitanyabsprip/pomo/handler"
 )
 
 func parseDuration(args []string) time.Duration {
@@ -34,17 +31,17 @@ func main() {
 		cmd = flag.Args()[0]
 	}
 
-	cache.Setup()
+	Setup()
 	switch cmd {
 	case "start":
 		duration := parseDuration(args)
-		handler.Start(duration)
+		Start(duration)
 	case "pause":
-		handler.Pause()
+		Pause()
 	case "stop":
-		handler.Stop()
+		Stop()
 	case "":
-		handler.ShowTime()
+		ShowTime()
 	default:
 		fmt.Fprintln(os.Stderr, "Invalid command")
 	}

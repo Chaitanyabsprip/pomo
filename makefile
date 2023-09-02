@@ -2,7 +2,7 @@ CACHEFILE=${HOME}/.cache/pomotimer
 
 .DEFAULT_GOAL:=./bin/pomo
 
-./bin/pomo: main.go cache/cache.go
+./bin/pomo: main.go cache.go handler.go
 	@go build -o ./bin/pomo
 
 start: ./bin/pomo

@@ -1,12 +1,10 @@
-package handler
+package main
 
 import (
 	"fmt"
 	"os"
 	"strings"
 	"time"
-
-	"github.com/chaitanyabsprip/pomo/cache"
 )
 
 func stringf(t time.Duration) string {
@@ -32,7 +30,7 @@ func stringf(t time.Duration) string {
 
 func Start(duration time.Duration) {
 	now := time.Now()
-	timer, err := cache.GetTimer()
+	timer, err := GetTimer()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Something went wrong")
 		fmt.Printf("Error: %s\n", err.Error())
@@ -49,18 +47,18 @@ func Start(duration time.Duration) {
 		fmt.Fprintln(os.Stderr, "Timer already running", duration)
 		os.Exit(1)
 	}
-	cache.SetTime(cache.Timer{Duration: d, Start: now})
+	SetTime(Timer{Duration: d, Start: now})
 }
 
 func Pause() {
-	timer, err := cache.GetTimer()
+	timer, err := GetTimer()
 	if err != nil || timer.IsNil() {
 		fmt.Fprintln(os.Stderr, "No timer running")
 		os.Exit(1)
 	}
 	duration := time.Until(timer.Start.Add(timer.Duration))
 	duration = duration.Round(time.Second)
-	cache.SetTime(cache.Timer{
+	SetTime(Timer{
 		Duration: duration,
 		IsPaused: true,
 		Start:    timer.Start,
@@ -68,12 +66,12 @@ func Pause() {
 }
 
 func Stop() {
-	t, _ := cache.GetTimer()
+	t, _ := GetTimer()
 	if t.IsNil() {
 		fmt.Fprintln(os.Stdout, "No timer running")
 		os.Exit(1)
 	}
-	err := cache.Clear()
+	err := Clear()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Couldn't stop timer")
 		os.Exit(1)
@@ -82,7 +80,7 @@ func Stop() {
 }
 
 func ShowTime() {
-	timer, err := cache.GetTimer()
+	timer, err := GetTimer()
 	if err != nil || timer.IsNil() {
 		fmt.Fprint(os.Stdout, "")
 		return

@@ -5,7 +5,8 @@
 
 ## Features
 
-Pomo features very basic set of features including start, stop and show running time. It also allows to pause timers.
+Pomo features very basic set of features including start, stop and show running
+time. It also allows to pause timers.
 
 ## Installation
 
@@ -24,7 +25,8 @@ You can install pomo by cloning the directory and running make install
 pomo start
 ```
 
-You can optionally pass the duration in `2h54m31s` format or `hr` or `hour` to start a timer until the start of the next hour.
+You can optionally pass the duration in `2h54m31s` format or `hr` or `hour` to
+start a timer until the start of the next hour.
 
 ```sh
 pomo start 52m30s
