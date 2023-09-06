@@ -57,6 +57,18 @@ func Stop() {
 	fmt.Fprintln(os.Stdout, "Timer stopped")
 }
 
+func getSymbol(duration, alertDuration time.Duration) string {
+	symbols := []string{"🍅", "💢"}
+	var symbol *string
+	if duration < alertDuration {
+		index := (duration / time.Second) % 2
+		symbol = &symbols[index.Abs()]
+	} else {
+		symbol = &symbols[0]
+	}
+	return *symbol
+}
+
 func ShowTime(alertDuration time.Duration) {
 	timer, err := GetTimer()
 	if err != nil || timer.IsNil() {
@@ -68,14 +80,13 @@ func ShowTime(alertDuration time.Duration) {
 		return
 	}
 	duration := time.Until(timer.Start.Add(timer.Duration))
-	duration = duration.Round(time.Second)
-	symbols := []string{"🍅", "💢"}
-	var symbol *string
-	if duration < alertDuration {
-		index := (duration / time.Second) % 2
-		symbol = &symbols[index.Abs()]
+	var durationStr string
+	if duration < 0 {
+		durationStr = ""
 	} else {
-		symbol = &symbols[0]
+		duration = duration.Round(time.Second)
+		durationStr = duration.String()
 	}
-	fmt.Fprintf(os.Stdout, "%s%s\n", *symbol, duration.String())
+	symbol := getSymbol(duration, alertDuration)
+	fmt.Fprintf(os.Stdout, "%s%s\n", symbol, durationStr)
 }
