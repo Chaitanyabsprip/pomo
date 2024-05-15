@@ -25,7 +25,7 @@ You can install pomo by cloning the directory and running make install
 Or using go CLI
 
 ```sh
-go install github.com/Chaitanyabsprip/pomo/cmd/pomo
+go install github.com/Chaitanyabsprip/pomo/cmd/pomo@latest
 ```
 
 ## Usage/Examples
