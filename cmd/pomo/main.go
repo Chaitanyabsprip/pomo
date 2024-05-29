@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	pomo "github.com/Chaitanyabsprip/pomo/pkg"
+	pomo "github.com/Chaitanyabsprip/pomo/internal"
 )
 
 func parseDuration(args []string) time.Duration {

@@ -1,7 +1,7 @@
 .DEFAULT_GOAL:=./bin/pomo
 INSTALL_PATH=/usr/local/bin/pomo
 
-./bin/pomo: cmd/pomo/main.go pkg/cache.go pkg/handlers.go
+./bin/pomo: cmd/pomo/main.go internal/cache.go internal/handlers.go
 	@go build -o ./bin/pomo ./cmd/pomo
 
 clean:
